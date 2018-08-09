@@ -11,7 +11,7 @@
   "tag":			    "tools, upgrade, application",
   "install":            "includes/ClicShopping/Apps/Tools/",
   "module_directory":   "Tools",
-  "apps_name":          "EditCSS",
+  "apps_name":          "Upgrade",
   "type_module":      "Fixe",
   "dependance":       "",
   "description":        "This apps allow you to search and display all application and to install it.",
