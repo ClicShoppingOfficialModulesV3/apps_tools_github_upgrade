@@ -2,7 +2,7 @@
   "title":			"apps_tools_github_upgrade",
   "type":       "apps",
   "vendor":			"Tools",
-  "is_free":   "ye",
+  "is_free":   "yes",
   "is_core":   "yes",
   "website_link_to_sell" : "",
   "version":			1.0,
