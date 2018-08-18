@@ -1,11 +1,13 @@
 <?php
-/*
- * upgrade.php
- * @copyright Copyright 2008 - http://www.innov-concept.com
- * @Brand : ClicShopping(Tm) at Inpi all right Reserved
- * @license GPL 2 License & MIT Licencse
-
-*/
+/**
+ *
+ *  @copyright 2008 - https://www.clicshopping.org
+ *  @Brand : ClicShopping(Tm) at Inpi all right Reserved
+ *  @Licence GPL 2 & MIT
+ *  @licence MIT - Portion of osCommerce 2.4
+ *
+ *
+ */
 
   use ClicShopping\OM\Registry;
   use ClicShopping\OM\HTML;
@@ -169,7 +171,7 @@
                         <!-- Modal content-->
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h4 class="modal-title"><?php echo $module_real_name; ?></h4>
+                            <h4 class="modal-title"><a href="<?php echo $link_html; ?>/archive/master.zip"><?php echo $module_real_name; ?></a>'; ?></h4>
                           </div>
                           <div class="modal-body">
                             <p><?php echo $CLICSHOPPING_Upgrade->getDef('text_description') . $description; ?></p>
@@ -257,7 +259,7 @@
                     <div class="card">
                       <div class="card-header">
                         <span class="col-md-1"><?php echo HTML::image($CLICSHOPPING_Template->getImageDirectory() . '/header/logo_clicshopping.png', '50', '50'); ?></span>
-                        <span class="col-md-11"><?php echo $module_real_name . ' - Github'; ?></span>
+                        <span class="col-md-11"><a href="<?php echo $link_html; ?>/archive/master.zip"><?php echo $module_real_name . ' - Github'; ?></a></span>
                       </div>
                       <div class="card-block">
                         <div class="row">

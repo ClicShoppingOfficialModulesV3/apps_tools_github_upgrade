@@ -1,10 +1,12 @@
 <?php
 /**
- * CoreUpgrade.php
- * @copyright Copyright 2008 - http://www.innov-concept.com
- * @copyright Portions Copyright osCommerce
- * @license GNU Public License V2.0
- * @version $Id:
+ *
+ *  @copyright 2008 - https://www.clicshopping.org
+ *  @Brand : ClicShopping(Tm) at Inpi all right Reserved
+ *  @Licence GPL 2 & MIT
+ *  @licence MIT - Portion of osCommerce 2.4
+ *
+ *
  */
 
 
@@ -31,7 +33,7 @@
 
       if (FileSystem::isWritable(CLICSHOPPING_BASE_DIR . 'Sites/Work/OnlineUpdates')) {
         $CLICSHOPPING_Github->UpgradeClicShoppingCore();
-        $CLICSHOPPING_MessageStack->add($this->app->getDef('succes_core_installed'), 'success');
+        $CLICSHOPPING_MessageStack->add($this->app->getDef('success_core_installed'), 'success');
       } else {
         $CLICSHOPPING_MessageStack->add($this->app->getDef('error_directory_not_writable'), 'danger');
       }
