@@ -15,7 +15,7 @@
   "type_module":      "Fixe",
   "dependance":       "",
   "description":        "This apps allow you to search and display all application and to install it.",
-  "image":            "",
+  "image":            "ModuleInfosJson/image.png",
   "authors": [
     {
       "name":		    "ClicShopping Team",

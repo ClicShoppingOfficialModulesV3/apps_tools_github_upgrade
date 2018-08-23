@@ -14,5 +14,7 @@ http://monsite/myAdmin/index.php?A&Tools\Upgrade
 
 Activate the module in Tools
 
-See Marketplace for all informations
+
+![image](https://github.com/ClicShoppingOfficialModulesV3/apps_tools_github_upgrade/blob/master/ModuleInfosJson/image.png)
+
 
