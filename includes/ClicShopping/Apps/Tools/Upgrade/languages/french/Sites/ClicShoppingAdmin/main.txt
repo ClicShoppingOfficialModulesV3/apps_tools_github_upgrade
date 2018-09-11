@@ -39,7 +39,7 @@ title_help = Aide
 button_manual = Installation manuelle
 text_local_version = Version locale :
 text_server_version = Version Serveur :
-text_up_to_date = - La recherche se fait uniquement à partir d'une partie du nom du module. Par exemple pour connaitre tous les modules d'entête il suffit d'écrire header, pour le base de page, footer ...<br />
+text_up_to_date = - La recherche se fait uniquement à partir d'une partie du nom du module. Par exemple pour connaitre tous les modules d'entête il suffit d'écrire header, pour le bas de page, footer ...<br />
 - <strong>Votre version est à jour. La version actuelle installée est : </strong>';
 
 text_step_upgrade = <p><strong>Procédure de mise à jour :</strong></p>
