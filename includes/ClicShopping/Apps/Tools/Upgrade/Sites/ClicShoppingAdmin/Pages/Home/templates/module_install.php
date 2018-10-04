@@ -56,8 +56,8 @@
             <div class="row">
               <div class="col-md-12 text-md-center">
 <?php
-                  echo HTML::radioField('official', 'true', true, 'id="official1" autocomplete="off"') . $CLICSHOPPING_Upgrade->getDef('text_official') . ' ';
-                  echo HTML::radioField('official', 'false', false, 'id="official2" autocomplete="off"') . $CLICSHOPPING_Upgrade->getDef('text_community');
+                  echo HTML::radioField('official', 'official', true, 'id="official1" autocomplete="off"') . $CLICSHOPPING_Upgrade->getDef('text_official') . ' ';
+                  echo HTML::radioField('official', 'community', false, 'id="official2" autocomplete="off"') . $CLICSHOPPING_Upgrade->getDef('text_community');
 ?>
               </div>
             </div>
@@ -207,7 +207,13 @@
                             <p><?php echo $CLICSHOPPING_Upgrade->getDef('text_directory_install') . $item->install . $item->module_directory; ?></p>
                             <p><?php echo $CLICSHOPPING_Upgrade->getDef('text_more_infos') . '<a href="' . $link_html .'" target="_blank" rel="noreferrer">Github</a>';  ?></p>
                             <p><?php echo $CLICSHOPPING_Upgrade->getDef('text_download') . '<a href="' . $link_html .'/archive/master.zip">' . $module_real_name . '</a>';  ?></p>
+<?php
+          if (!is_null($item->image) || !empty($item->image)) {
+?>
                             <p><img src="https://raw.github.com/ClicShoppingOfficialModulesV3/<?php echo $module_real_name; ?>/master/<?php echo $item->image; ?>" alt="<?php echo $module_real_name; ?>" class="img-fluid"></img></p>
+<?php
+          }
+?>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $CLICSHOPPING_Upgrade->getDef('text_close'); ?></button>
@@ -338,7 +344,13 @@
           }
 ?>
                                       </p>
+<?php
+          if (!is_null($result_content_module->image) || !empty($result_content_module->image)) {
+?>
                                       <p><img src="https://raw.github.com/ClicShoppingOfficialModulesV3/<?php echo $module_real_name; ?>/master/<?php echo $result_content_module->image; ?>" alt="<?php echo $module_real_name; ?>" class="img-fluid"></img></p>
+<?php
+          }
+?>
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $CLICSHOPPING_Upgrade->getDef('text_close'); ?></button>
