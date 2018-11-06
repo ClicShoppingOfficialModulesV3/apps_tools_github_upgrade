@@ -203,7 +203,7 @@
                    'text' => $this->app->getDef('text_select_module_template')
                   ];
 
-      $exclude = ['..', '.', 'customers_address', 'download', 'index.php', '_htaccess', '.htaccess'];
+      $exclude = ['..', '.', 'customers_address', 'download', 'CLICSHOPPING::link(null, '_htaccess', '.htaccess'];
       $module_dir = array_diff(scandir($default_directory), $exclude);
 
       foreach ($module_dir as $filename) {
