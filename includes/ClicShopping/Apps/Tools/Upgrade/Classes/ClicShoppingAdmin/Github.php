@@ -99,7 +99,7 @@
       if ($VersionCache->exists(30)) {
         $result = $VersionCache->get();
       } else {
-        $json = @file_get_contents($this->getGithubCoreRepo() . '/contents/boutique/includes/ClicShopping/version.json?ref=master', true, $this->context);
+        $json = @file_get_contents($this->getGithubCoreRepo() . '/contents/shop/includes/ClicShopping/version.json?ref=master', true, $this->context);
 
         $url = json_decode($json);
 
@@ -203,7 +203,7 @@
                    'text' => $this->app->getDef('text_select_module_template')
                   ];
 
-      $exclude = ['..', '.', 'customers_address', 'download', 'CLICSHOPPING::link(null, '_htaccess', '.htaccess'];
+      $exclude = ['..', '.', 'customers_address', 'download', 'index.php', '_htaccess', '.htaccess'];
       $module_dir = array_diff(scandir($default_directory), $exclude);
 
       foreach ($module_dir as $filename) {
@@ -248,35 +248,6 @@
       return $module;
     }
 
-//*************************************************************
-// Limit
-//*************************************************************
-
-/*
- * display a message if the limited is not accepted by github
- * @param
- * @return  string $message, if the limited is not accepted by github
- * @access public
- */
-/*
-    public function getSearchLimit() {
-      $searchLimit = $this->github->api('rate_limit')->getSearchLimit();
-
-      return $searchLimit;
-    }
-
-    public function getRateLimits() {
-      $rateLimits = $this->github->api('rate_limit')->getRateLimits();
-
-      return $rateLimits;
-    }
-
-    public function getCoreLimit() {
-      $CoreLimit = $this->github->api('rate_limit')->getCoreLimit();
-
-      return $CoreLimit;
-    }
-*/
 //*************************************************************
 // Cache
 //*************************************************************
