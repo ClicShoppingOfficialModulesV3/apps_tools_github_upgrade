@@ -14,7 +14,7 @@ http://monsite/myAdmin/index.php?A&Tools\Upgrade
 
 Activate the module in Tools
 
-All informations about the CliCshopping
+All informations about the ClicShopping
 
  Community : https://www.clicshopping.org
 
