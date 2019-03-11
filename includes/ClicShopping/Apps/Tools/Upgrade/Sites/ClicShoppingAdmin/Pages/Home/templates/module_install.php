@@ -31,19 +31,19 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card card-block headerCard">
-          <div class="row">
+          <div class="row col-md-12">
 <?php
   echo HTML::form('upgrade', $CLICSHOPPING_Upgrade->link('ModuleInstall'), 'post', null, ['session_id' => true]);
 ?>
-            <div class="form-group row">
+            <div class="col-md-12 form-group row">
               <div class="col-md-3">
-                <div class="col-md-1"><?php echo HTML::image($CLICSHOPPING_Template->getImageDirectory() . '/categories/apps.png', $CLICSHOPPING_Upgrade->getDef('heading_title'), '40', '40'); ?></div>
-                <div class="col-md-11 pageHeading"><?php echo '&nbsp;' . $CLICSHOPPING_Upgrade->getDef('heading_title'); ?></div>
+                <span class="col-md-1"><?php echo HTML::image($CLICSHOPPING_Template->getImageDirectory() . '/categories/apps.png', $CLICSHOPPING_Upgrade->getDef('heading_title'), '40', '40'); ?></span>
+                <span class="col-md-11 pageHeading"><?php echo '&nbsp;' . $CLICSHOPPING_Upgrade->getDef('heading_title'); ?></span>
               </div>
 
-              <div class="col-md-2"><?php echo HTML::selectMenu('install_module_directory', $CLICSHOPPING_Github->getModuleDirectory(), $_POST['template_directory'], 'onchange="this.form.submit();"'); ?></div>
-              <div class="col-md-2"><?php echo HTML::selectMenu('install_module_template_directory', $CLICSHOPPING_Github->getModuleTemplateDirectory(), $_POST['template_directory'], 'onchange="this.form.submit();"'); ?></div>
-              <div class="col-md-2"><?php echo HTML::inputField('module_search', '', 'required id="search" placeholder="' . $CLICSHOPPING_Upgrade->getDef('text_search') . '"'); ?></div>
+              <div class="col-md-2"><?php echo HTML::selectMenu('install_module_directory', $CLICSHOPPING_Github->getModuleDirectory(), $_POST['template_directory']); ?></div>
+              <div class="col-md-2"><?php echo HTML::selectMenu('install_module_template_directory', $CLICSHOPPING_Github->getModuleTemplateDirectory(), $_POST['template_directory']); ?></div>
+              <div class="col-md-2"><?php echo HTML::inputField('module_search', '', 'id="search" placeholder="' . $CLICSHOPPING_Upgrade->getDef('text_search') . '"'); ?></div>
               <div class="col-md-3 text-md-right">
 <?php
   echo HTML::button($CLICSHOPPING_Upgrade->getDef('button_reset'), null, $CLICSHOPPING_Upgrade->link('Upgrade&ResetCache'), 'danger', null, 'sm') . '&nbsp;';
@@ -52,14 +52,14 @@
 ?>
               </div>
             </div>
-
-            <div class="col-md-12 form-group row">
-              <div class="col-md-3"></div>
-              <div class="col-md-9 text-md-center"><?php echo $CLICSHOPPING_Github->getDropDownMenuSearchOption(); ?></div>
+            <div class="row col-md-12">
+              <div class="col-md-12 form-group row">
+                <span class="col-md-4"></span>
+                <span class="col-md-4 text-md-center"><?php echo $CLICSHOPPING_Github->getDropDownMenuSearchOption(); ?></span>
+                <span class="col-md-4"><?php echo HTML::button($CLICSHOPPING_Upgrade->getDef('text_search'), null, null, 'primary');?></span>
+              </div>
             </div>
-          </div>
-
-          </form>
+            </form>
           </div>
         </div>
       </div>
@@ -127,6 +127,8 @@
         $module_real_name = $item->name;
         $link_html =  $item->html_url;
       }
+
+      $directory = $item->owner->login;
 
       $local_version = '';
       $temp_version = '';
@@ -205,9 +207,15 @@
                             <p><?php echo $CLICSHOPPING_Upgrade->getDef('text_download') . '<a href="' . $link_html .'/archive/master.zip">' . $module_real_name . '</a>';  ?></p>
 <?php
           if (!is_null($item->image) || !empty($item->image)) {
+            if ($directory == 'ClicShoppingOfficialModulesV3') {
 ?>
-                            <p><img src="https://raw.github.com/ClicShoppingOfficialModulesV3/<?php echo $module_real_name; ?>/master/<?php echo $item->image; ?>" alt="<?php echo $module_real_name; ?>" class="img-fluid"></img></p>
+                            <p><img src="https://raw.github.com/<?php echo $directory . '/' . $module_real_name; ?>/master/<?php echo $item->image; ?>" alt="<?php echo $module_real_name; ?>" class="img-fluid"></img></p>
 <?php
+            } else {
+?>
+                            <p><img src="https://raw.github.com/<?php echo $directory . '/' . $module_real_name; ?>/master/<?php echo $item->image; ?>" alt="<?php echo $module_real_name; ?>" class="img-fluid"></img></p>
+<?php
+            }
           }
 ?>
                           </div>
@@ -264,7 +272,7 @@
           if (strtolower($item->type) == 'apps') {
             $module = CLICSHOPPING::link(null, 'A&' . $item->module_directory . '\\' . $item->apps_name);
           } else {
-            $module = 'modules.php?set=' . $item->module_directory . '&list=new';
+            $module = 'index.php?A&Configuration\Modules&Modules&set=' . $item->module_directory;
           }
 
           if ($local_version != -1) {
@@ -342,12 +350,17 @@
                                       </p>
 <?php
           if (!is_null($result_content_module->image) || !empty($result_content_module->image)) {
+            if ($directory == 'ClicShoppingOfficialModulesV3') {
 ?>
-                                      <p><img src="https://raw.github.com/ClicShoppingOfficialModulesV3/<?php echo $module_real_name; ?>/master/<?php echo $result_content_module->image; ?>" alt="<?php echo $module_real_name; ?>" class="img-fluid"></img></p>
+                                      <p><img src="https://raw.github.com/<?php echo $directory . '/' . $module_real_name; ?>/master/<?php echo $result_content_module->image; ?>" alt="<?php echo $module_real_name; ?>" class="img-fluid"></img></p>
 <?php
-          }
+            } else {
 ?>
-                                    </div>
+                                     <p><img src="https://raw.github.com/<?php echo $directory . '/' . $module_real_name; ?>/master/<?php echo $result_content_module->image; ?>" alt="<?php echo $module_real_name; ?>" class="img-fluid"></img></p>
+<?php
+            }
+          }
+?>                                    </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $CLICSHOPPING_Upgrade->getDef('text_close'); ?></button>
                                     </div>
@@ -379,7 +392,7 @@
             if (strtolower($result_content_module->type) == 'apps') {
               $module = CLICSHOPPING::link(null, 'A&' . $result_content_module->module_directory . '\\' . $result_content_module->apps_name);
             } else {
-              $module = 'modules.php?set=' . $result_content_module->module_directory . '&list=new';
+              $module = 'index.php?A&Configuration\Modules&Modules&set=' . $result_content_module->module_directory;
             }
 ?>
           </div>
