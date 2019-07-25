@@ -1,13 +1,13 @@
 <?php
-/**
- *
- *  @copyright 2008 - https://www.clicshopping.org
- *  @Brand : ClicShopping(Tm) at Inpi all right Reserved
- *  @Licence GPL 2 & MIT
- *  @licence MIT - Portion of osCommerce 2.4
- *  @Info : https://www.clicshopping.org/forum/trademark/
- *
- */
+  /**
+   *
+   * @copyright 2008 - https://www.clicshopping.org
+   * @Brand : ClicShopping(Tm) at Inpi all right Reserved
+   * @Licence GPL 2 & MIT
+   * @licence MIT - Portion of osCommerce 2.4
+   * @Info : https://www.clicshopping.org/forum/trademark/
+   *
+   */
 
   namespace ClicShopping\Apps\Tools\Upgrade\Module\ClicShoppingAdmin\Dashboard;
 
@@ -19,12 +19,14 @@
 
   use ClicShopping\Apps\Tools\Upgrade\Upgrade as UpgradeApp;
 
-  class Upgrade extends \ClicShopping\OM\Modules\AdminDashboardAbstract {
+  class Upgrade extends \ClicShopping\OM\Modules\AdminDashboardAbstract
+  {
 
     protected $lang;
     protected $app;
 
-    protected function init() {
+    protected function init()
+    {
 
       if (!Registry::exists('Upgrade')) {
         Registry::set('Upgrade', new UpgradeApp());
@@ -38,13 +40,14 @@
       $this->title = $this->app->getDef('module_admin_dashboard_clicshopping_update_app_title');
       $this->description = $this->app->getDef('module_admin_dashboard_clicshopping_update_app_description');
 
-      if ( defined('MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_STATUS') ) {
+      if (defined('MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_STATUS')) {
         $this->sort_order = (int)MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_SORT_ORDER;
         $this->enabled = (MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_STATUS == 'True');
       }
     }
 
-    public function getOutput() {
+    public function getOutput()
+    {
 
       Registry::set('Github', new Github());
       $CLICSHOPPING_Github = Registry::get('Github');
@@ -56,8 +59,10 @@
 
       $core_info = $CLICSHOPPING_Github->getJsonCoreInformation();
 
-      if ( $current_version < $core_info->version) {
-        $new_version = true;
+      if (is_object($core_info) && $core_info->version) {
+        if ($current_version < $core_info->version) {
+          $new_version = true;
+        }
       }
 
       if ($new_version === true) {
@@ -65,17 +70,18 @@
 
         $output = '<div class="col-md-' . $content_width . '">';
         $output .= '<div class="row alert alert-warning" role="alert">';
-        $output .= '<span class="col-md-8"><strong>' . $this->app->getDef('module_admin_dashboard_clicshopping_update_app_text_warning_upgrade') . ' : ' . $current_version . '  => ' . $core_info->version . '</strong></span>';
-        $output .= '<span class="col-md-4 text-md-right">' . HTML::button($this->app->getDef('module_admin_dashboard_clicshopping_update_app_button'), null, CLICSHOPPING::link(null, 'A&Tools\Upgrade&Upgrade'), 'secondary', null, 'sm') . '</span>';
+        $output .= '<span class="col-md-11"><strong>' . $this->app->getDef('module_admin_dashboard_clicshopping_update_app_text_warning_upgrade') . ' : ' . $current_version . '  => ' . $core_info->version . ' - ' . $core_info->date . '<br />'. $core_info->description . '  </strong></span>';
+        $output .= '<span class="col-md-1 text-md-right"><a href="https://github.com/ClicShopping/ClicShopping_V3/archive/master.zip" target="_blank" rel="noreferrer">' . HTML::button($this->app->getDef('module_admin_dashboard_clicshopping_update_app_button', 'primary')) . '</a></span>';
         $output .= '</div>';
         $output .= '</div>';
         $output .= '<div class="separator"></div>';
-      }
 
-      return $output;
+        return $output;
+      }
     }
 
-    public function Install() {
+    public function Install()
+    {
       if ($this->lang->getId() != 2) {
 
         $this->app->db->save('configuration', [
@@ -128,7 +134,7 @@
           ]
         );
 
-         $this->app->db->save('configuration', [
+        $this->app->db->save('configuration', [
             'configuration_title' => 'Select the width to display',
             'configuration_key' => 'MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_CONTENT_WIDTH',
             'configuration_value' => '12',
@@ -140,7 +146,7 @@
           ]
         );
 
-         $this->app->db->save('configuration', [
+        $this->app->db->save('configuration', [
             'configuration_title' => 'Sort Order',
             'configuration_key' => 'MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_SORT_ORDER',
             'configuration_value' => '1',
@@ -154,10 +160,11 @@
       }
     }
 
-    public function keys() {
+    public function keys()
+    {
       return ['MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_STATUS',
-              'MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_CONTENT_WIDTH',
-              'MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_SORT_ORDER'
-             ];
+        'MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_CONTENT_WIDTH',
+        'MODULE_ADMIN_DASHBOARD_CLICSHOPPING_UPDATE_APP_SORT_ORDER'
+      ];
     }
   }
