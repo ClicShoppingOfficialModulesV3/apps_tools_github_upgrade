@@ -169,7 +169,9 @@
     private function checkDirectoryOnlineUpdate()
     {
       if (!is_dir($this->saveFileFromGithub)) {
-        mkdir($this->saveFileFromGithub, 0777, true);
+        if (!mkdir($concurrentDirectory = $this->saveFileFromGithub, 0777, true) && !is_dir($concurrentDirectory)) {
+          throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+        }
         return true;
       } elseif (FileSystem::isWritable($this->saveFileFromGithub)) {
         return true;
@@ -178,7 +180,9 @@
       }
 
       if (!is_dir($this->cacheGithub)) {
-        mkdir($this->cacheGithub, 0777, true);
+        if (!mkdir($concurrentDirectory = $this->cacheGithub, 0777, true) && !is_dir($concurrentDirectory)) {
+          throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+        }
         return true;
       } elseif (FileSystem::isWritable($this->cacheGithub)) {
         return true;
@@ -187,7 +191,9 @@
       }
 
       if (!is_dir($this->cacheGithubTemp)) {
-        mkdir($this->cacheGithubTemp, 0777, true);
+        if (!mkdir($concurrentDirectory = $this->cacheGithubTemp, 0777, true) && !is_dir($concurrentDirectory)) {
+          throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+        }
         return true;
       } elseif (FileSystem::isWritable($this->cacheGithubTemp)) {
         return true;
@@ -600,6 +606,7 @@
 // copy json in cache
           $json_source = $this->saveFileFromGithub . '/' . $file . '-master/' . $this->ModuleInfosJson . '/';
           $json_destination = $this->cacheGithub;
+
           @ModuleDownload::smartCopy($json_source, $json_destination);
 
 // copy files their directories
@@ -620,7 +627,7 @@
         $this->getCloseOpenStore('false');
       }
 
-      $this->app->redirect('ModuleInstall');
+      $this->app->redirect('ModuleInstallResult&file=' . $file);
     }
 
     public function getDropDownMenuSearchOption()
