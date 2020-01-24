@@ -111,7 +111,7 @@
               echo $CLICSHOPPING_Upgrade->getDef('text_upgrade_new_version') . ' ' . $core_online_info->version . '<br />';
               echo 'Date : ' . $core_online_info->date . '<br />';
               echo 'Description : ' . $core_online_info->description . '<br />';
-              echo 'Github : <a href="https://github.com/ClicShopping/ClicShopping_V3/archive/master.zip" target="_blank" rel="noreferrer">' . $CLICSHOPPING_Upgrade->getDef('test_download') . '</a><br />';
+              echo 'Github : <a href="https://github.com/ClicShopping/ClicShopping_V3/archive/master.zip" target="_blank" rel="noopener">' . $CLICSHOPPING_Upgrade->getDef('test_download') . '</a><br />';
 ?>
         </div>
 <?php
@@ -127,9 +127,9 @@
         <div>
 <?php
         echo $CLICSHOPPING_Upgrade->getDef('text_upgrade_site');
-        echo '-  <a href="https://github.com/ClicShopping/ClicShopping_V3/" target="_blank" rel="noreferrer">ClicShopping</a><br />';
-        echo '-  <a href="https://github.com/ClicShoppingOfficialModulesV3" target="_blank" rel="noreferrer">' . $CLICSHOPPING_Upgrade->getDef('text_official') . '<br />';
-        echo '- <a href="https://github.com/ClicShoppingV3Community" target="_blank" rel="noreferrer">' . $CLICSHOPPING_Upgrade->getDef('text_community') . '<br />';
+        echo '-  <a href="https://github.com/ClicShopping/ClicShopping_V3/" target="_blank" rel="noopener">ClicShopping</a><br />';
+        echo '-  <a href="https://github.com/ClicShoppingOfficialModulesV3" target="_blank" rel="noopener">' . $CLICSHOPPING_Upgrade->getDef('text_official') . '<br />';
+        echo '- <a href="https://github.com/ClicShoppingV3Community" target="_blank" rel="noopener">' . $CLICSHOPPING_Upgrade->getDef('text_community') . '<br />';
 ?>
         </div>
 <?php
