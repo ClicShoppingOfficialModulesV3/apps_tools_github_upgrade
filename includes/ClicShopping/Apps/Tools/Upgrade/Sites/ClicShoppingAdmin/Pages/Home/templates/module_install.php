@@ -112,13 +112,16 @@
 ?>
       <div class="d-flex flex-wrap">
 <?php
-      $count = $CLICSHOPPING_Github->getSearchTotalCount();
-
-      for ($i = 0, $n = $count_file;$i < $n;  $i++) {
+    if ($count_file > 0) {
+      for ($i = 0, $n = $count_file; $i < $n;  $i++) {
         if ($result->items[$i] === null) {
-          $item = $result[$i];
-          $module_real_name = $item->title;
-          $link_html = 'https://github.com/ClicShoppingOfficialModulesV3/' . $item->title;
+            if ($result[$i]) {
+              $item = $result[$i];
+              $module_real_name = $item->title;
+              $link_html = 'https://github.com/ClicShoppingOfficialModulesV3/' . $item->title;
+            } else {
+              ClicShopping::redirect();
+            }
         } else {
           $item = $result->items[$i];
           $module_real_name = $item->name;
@@ -215,7 +218,7 @@
                           <p><?php echo '<strong>' .  $CLICSHOPPING_Upgrade->getDef('text_tag') . '</strong>  ' .  $item->tag; ?></p>
                           <p><?php echo '<strong>' .  $CLICSHOPPING_Upgrade->getDef('text_module_type') . '</strong>  ' .  $item->type; ?></p>
                           <p><?php echo '<strong>' .  $CLICSHOPPING_Upgrade->getDef('text_directory_install') . '</strong>  ' .  $item->install . $item->module_directory; ?></p>
-                          <p><?php echo '<strong>' .  $CLICSHOPPING_Upgrade->getDef('text_more_infos') . '</strong> <a href="' . $link_html . '" target="_blank" rel="noopener">Github</a>'; ?></p>
+                          <p><?php echo '<strong>' .  $CLICSHOPPING_Upgrade->getDef('text_more_infos') . '</strong> <a href="' . $link_html . '" target="_blank" rel="noreferrer">Github</a>'; ?></p>
                           <p><?php echo '<strong>' .  $CLICSHOPPING_Upgrade->getDef('text_download') . '</strong> <a href="' . $link_html . '/archive/master.zip">' . $module_real_name . '</a>'; ?></p>
     <?php
             if (!empty($item->image)) {
@@ -260,12 +263,11 @@
                   } else {
                     $marketplace_link = $item->website_link_to_sell;
                   }
-                }
-
-                if ($error === true) {
-                  echo '<span class="text-md-right"> ' . $message . '</span>';
-                } else {
-                  echo '<span class="text-md-right"><a href="' . $marketplace_link . '" target="_blank" rel="noopener" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">' . $CLICSHOPPING_Upgrade->getDef('button_not_free') . '</a></span>';
+                  if ($error === true) {
+                    echo '<span class="text-md-right"> ' . $message . '</span>';
+                  } else {
+                    echo '<span class="text-md-right"><a href="' . $marketplace_link . '" target="_blank" rel="noreferrer" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">' . $CLICSHOPPING_Upgrade->getDef('button_not_free') . '</a></span>';
+                  }
                 }
               } else {
                 echo HTML::form('install', $CLICSHOPPING_Upgrade->link('Upgrade&ModuleInstall'));
@@ -380,7 +382,7 @@
                         <p><?php echo '<strong> ' .  $CLICSHOPPING_Upgrade->getDef('text_module_type') . '</strong>  ' .  $result_content_module->type; ?></p>
                         <p><?php echo '<strong> ' .  $CLICSHOPPING_Upgrade->getDef('text_directory_install') . '</strong>  ' . $result_content_module->install; ?></p>
                         <p><?php echo '<strong> ' .  $CLICSHOPPING_Upgrade->getDef('text_dependance') . '</strong>  ' . $result_content_module->dependance; ?></p>
-                        <p><?php echo '<strong> ' .  $CLICSHOPPING_Upgrade->getDef('text_more_infos') . '</strong> <a href="' . $link_html . '" target="_blank" rel="noopener">Github</a>'; ?></p>
+                        <p><?php echo '<strong> ' .  $CLICSHOPPING_Upgrade->getDef('text_more_infos') . '</strong> <a href="' . $link_html . '" target="_blank" rel="noreferrer">Github</a>'; ?></p>
                         <p>
 <?php
               if (strtolower($result_content_module->is_free) != 'no') {
@@ -406,7 +408,7 @@
 <?php
                 }
               }
-?>                                      
+?>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -420,7 +422,7 @@
                 <div class="col-md-6 text-md-right float-md-right">
 <?php
               if (strtolower($result_content_module->is_free) != 'yes') {
-                echo '<span class="text-md-right"><a href="' . $result_content_module->website_link_to_sell . '" target="_blank" rel="noopener" class="btn btn-success btn-sm active" role="button" aria-pressed="true">' . $CLICSHOPPING_Upgrade->getDef('button_not_free') . '</a></span>';
+                echo '<span class="text-md-right"><a href="' . $result_content_module->website_link_to_sell . '" target="_blank" rel="noreferrer" class="btn btn-success btn-sm active" role="button" aria-pressed="true">' . $CLICSHOPPING_Upgrade->getDef('button_not_free') . '</a></span>';
               } else {
                 echo HTML::form('install', $CLICSHOPPING_Upgrade->link('Upgrade&ModuleInstall'));
                 echo '<span class="text-md-right"> ' . HTML::button($CLICSHOPPING_Upgrade->getDef('button_install'), null, null, 'warning', null, 'sm') . '</span>';
@@ -464,8 +466,9 @@
         </div>
       </div>
 <?php
-      }
-    }//for
+        }
+      }//for
+    }
   }
 ?>
     </div>

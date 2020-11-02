@@ -23,22 +23,20 @@
 
   class Github
   {
-
     protected $app;
     protected $github;
-    protected $githubRepo;
+    protected string $githubRepo;
     protected $context;
-    protected $coreName;
-    protected $githubRepoClicShoppingCore;
-    protected $githubRepoName;
-    protected $saveFileFromGithub;
-    protected $cacheGithub;
-    public $cacheGithubTemp;
-    protected $ModuleInfosJson;
+    protected string $coreName;
+    protected string $githubRepoClicShoppingCore;
+    protected string $githubRepoName;
+    protected string $saveFileFromGithub;
+    protected string $cacheGithub;
+    public string $cacheGithubTemp;
+    protected string $ModuleInfosJson;
 
     public function __construct()
     {
-
       if (!Registry::exists('Upgrade')) {
         Registry::set('Upgrade', new UpgradeApp());
       }
@@ -83,13 +81,11 @@
     * user agent in Header
     * @param
     * @return  user agent
-    *
     */
     private function setContext()
     {
       return $this->context;
     }
-
 
     /**
      * get ClicShopping Core Version from Github
@@ -125,7 +121,7 @@
      * @return bool
      * @uses ZipArchive
      */
-    private function getExtractZip($source, $destination)
+    private function getExtractZip(string $source, string $destination) :bool
     {
       $zip = new \ZipArchive;
 
@@ -142,7 +138,6 @@
     * user open or Close the store during the upgrade process
     * @param $value,true / false
     * @return
-    *
     */
     private function getCloseOpenStore($value)
     {
@@ -164,9 +159,8 @@
      * Check directory if exist or not
      * @param
      * @return Boolean true / false
-     *
      */
-    private function checkDirectoryOnlineUpdate()
+    private function checkDirectoryOnlineUpdate() :bool
     {
       if (!is_dir($this->saveFileFromGithub)) {
         if (!mkdir($concurrentDirectory = $this->saveFileFromGithub, 0777, true) && !is_dir($concurrentDirectory)) {
@@ -205,23 +199,30 @@
 
     /**
      * get all modules directories for template
-     * @param
      * @return $module,values of array
-     *
      */
     public function getModuleTemplateDirectory()
     {
-
       $default_directory = CLICSHOPPING::getConfig('dir_root', 'Shop') . 'sources/template/Default/modules';
-      $module[] = ['id' => '0',
+      $module[] = [
+        'id' => '0',
         'text' => $this->app->getDef('text_select_module_template')
       ];
 
-      $exclude = ['..', '.', 'customers_address', 'download', 'index.php', '_htaccess', '.htaccess'];
+      $exclude = [
+        '..',
+        '.',
+        'customers_address',
+        'download',
+        'index.php',
+        '_htaccess',
+        '.htaccess'];
+
       $module_dir = array_diff(scandir($default_directory), $exclude);
 
       foreach ($module_dir as $filename) {
-        $module[] = ['id' => $filename,
+        $module[] = [
+          'id' => $filename,
           'text' => str_replace('_ ', '', $filename)
         ];
       }
@@ -235,9 +236,10 @@
      * @return $module,values of array
      *
      */
-    public function getModuleDirectory()
+    public function getModuleDirectory() :array
     {
-      $module = array(array('id' => '0', 'text' => $this->app->getDef('text_select_module_fix')),
+      $module = array(array(
+        'id' => '0', 'text' => $this->app->getDef('text_select_module_fix')),
         array('id' => 'export', 'text' => 'Modules Export'),
         array('id' => 'header_tags', 'text' => 'Modules Header Tags'),
         array('id' => 'hooks', 'text' => 'Modules Hooks'),
@@ -256,7 +258,6 @@
         array('id' => 'tools', 'text' => 'Modules Apps Tools'),
         array('id' => 'service', 'text' => 'Modules Apps Web service'),
         array('id' => 'other', 'text' => 'Modules Apps Others'),
-        array('id' => 'bookmarks', 'text' => 'Modules Social Bookmarks'),
         array('id' => 'template', 'text' => 'Template Design'),
         array('id' => 'language', 'text' => 'Language'),
       );
@@ -274,7 +275,7 @@
      * @return  $file, file information
      * @access private
      */
-    private function getCheckDateCache($module_name)
+    private function getCheckDateCache(string $module_name)
     {
       $life = 864000; // 1 month
 
@@ -295,13 +296,12 @@
       }
     }
 
-    /*
+    /**
      * Check if cache exit else create
-     * @param $module_name name of the module
-     * @return  $file, file information
-     * @access private
+     * @param string $module_name
+     * @return bool|string
      */
-    public function getCheckCacheFile($module_name)
+    public function getCheckCacheFile(string $module_name)
     {
       if (!empty($module_name)) {
         $this->getCheckDateCache($module_name);
@@ -344,13 +344,12 @@
       }
     }
 
-    /*
+    /**
      * get the json file infromation about temporary directory
-     * @param $module_name name of the module
-     * @return  $file, file information
-     *
+     * @param string $module_name
+     * @return false|mixed
      */
-    public function getCacheFileTemp($module_name)
+    public function getCacheFileTemp(string $module_name)
     {
       $check = $this->getCheckCacheFile($module_name);
 
@@ -364,13 +363,11 @@
       }
     }
 
-    /*
-     * get the json file information about file installed
-     * @param $module_name name of the module
-     * @return  $file, file information
-     *
+    /**
+     * @param string $module_name
+     * @return mixed|null
      */
-    public function getCacheFile($module_name)
+    public function getCacheFile(string $module_name)
     {
       $check = $this->getCheckCacheFile($module_name);
 
@@ -388,16 +385,11 @@
 // Limit
 //*************************************************************
 
-
-    /*
-    * take $_POST form about the search
-    * @param
-    * @return  $result search item
-    *
-    */
-    public function getSearchModule()
+    /**
+     * @return string
+     */
+    public function getSearchModule() :string
     {
-
       if (isset($_POST['install_module_template_directory']) && $_POST['install_module_template_directory'] != '0 '&& !empty($_POST['install_module_template_directory'])) {
         $result = HTML::sanitize($_POST['install_module_template_directory']);
       } elseif (isset($_POST['install_module_directory']) && $_POST['install_module_directory'] != '0 '&& !empty($_POST['install_module_directory'])) {
@@ -409,13 +401,11 @@
       return $result;
     }
 
-    /*
-    * Search inside Github repo
-    * @param
-    * @return array $result : all ement about a github search on item search
-    *
-    */
-
+    /**
+     * search inside Github repo
+     * @param null $name
+     * @return mixed
+     */
     public function getSearchInsideRepo($name = null)
     {
       if (is_null($name)) {
@@ -430,13 +420,11 @@
       return $result;
     }
 
-    /*
-    * Cout the total research
-    * @param
-    * @return int $count  count of total research
-    *
-    */
-    public function getSearchTotalCount()
+    /**
+     * Count the total research
+     * @return int
+     */
+    public function getSearchTotalCount() :int
     {
       $result = $this->getSearchInsideRepo();
 
@@ -449,25 +437,23 @@
       return $count;
     }
 
-    /*
-    * getGithubRepo : Gisthub repo
-    * @param
-    * @return string  $url url about the github repo
-     *
-    */
-    private function getGithubRepo()
+    /**
+     * getGithubRepo : Gisthub repo
+     * @return string
+     */
+    private function getGithubRepo() :string
     {
       $url = $this->githubApi . '/' . $this->githubRepo . '/' . $this->githubRepoName . '/';
+
       return $url;
     }
 
     /**
      * get the version if exist on local
-     * @param $module_name , string, module name
-     * @return $version, string module verison
-     *
+     * @param string $module_name
+     * @return int
      */
-    public function getJsonModuleLocalVersion($module_name)
+    public function getJsonModuleLocalVersion(string $module_name)
     {
       if (is_file($this->cacheGithub . $module_name . '.json')) {
         $json = file_get_contents($this->cacheGithub . $module_name . '.json', true, $this->context);
@@ -487,14 +473,13 @@
 //******************************************
 // Module
 //******************************************
-//
+
     /**
      * get the json of module content repository
-     * @param $module_name , string, module name
-     * @return $result,values of array
-     *
+     * @param string $module_name
+     * @return mixed
      */
-    public function getJsonRepoContentInformationModule($module_name)
+    public function getJsonRepoContentInformationModule(string $module_name)
     {
       $json = @file_get_contents($this->getGithubRepo() . $module_name . '/contents/' . $this->ModuleInfosJson . '?ref=master', true, $this->context);
       $result = json_decode($json);
@@ -506,13 +491,10 @@
     }
 
     /**
-     * Github module download
-     * @param $module_name , string, module name
-     * @return $url, json element
-     *
+     * @param string $url
+     * @return mixed
      */
-
-    public function getJsonModuleInformaton($url)
+    public function getJsonModuleInformaton(string $url)
     {
       $json = @file_get_contents($url, true, $this->setContext());
       $result_content_module = json_decode($json);
@@ -522,11 +504,9 @@
 
     /**
      * Github module download
-     * @param $module_name , string, module name
-     * @return $url, link to download the module
-     *
+     * @param string $module_name
      */
-    public function getModuleMasterArchive($module_name)
+    public function getModuleMasterArchive(string $module_name)
     {
       if (!empty($module_name) || !is_null($module_name)) {
         $url = HTML::sanitize($_POST['githubLink']);
@@ -543,10 +523,9 @@
 
     /**
      * Extract ClicShopping Core Zip to install inside ClicShopping
-     * @param $file , file to exptract
-     *
+     * @param string $file
      */
-    public function getInstallModuleTemplate($file)
+    public function getInstallModuleTemplate(string $file)
     {
       $CLICSHOPPING_MessageStack = Registry::get('MessageStack');
 
@@ -586,15 +565,11 @@
       $this->app->redirect('CoreUpgrade');
     }
 
-
     /**
      * Extract ClicShopping Core Zip to install inside ClicShopping
-     * @param $file , rfile to exptract
-     * @return $
-     *
+     * @param string $file
      */
-
-    public function getInstallModuleFixe($file)
+    public function getInstallModuleFixe(string $file)
     {
       $CLICSHOPPING_MessageStack = Registry::get('MessageStack');
 
@@ -631,6 +606,9 @@
       $this->app->redirect('ModuleInstallResult&file=' . $file);
     }
 
+    /**
+     * @return string
+     */
     public function getDropDownMenuSearchOption()
     {
       if (isset($_POST['addons_apps'])) {
@@ -639,9 +617,9 @@
         $addons_apps = '';
       }
 
-      $array = array(array('id' => 'official', 'text' => $this->app->getDef('text_official')),
-        array('id' => 'community', 'text' => $this->app->getDef('text_community'))
-      );
+      $array = [array('id' => 'official', 'text' => $this->app->getDef('text_official')),
+                array('id' => 'community', 'text' => $this->app->getDef('text_community'))
+      ];
 
       return HTML::selectMenu('addons_apps', $array, $addons_apps);
     }
