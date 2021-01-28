@@ -190,7 +190,7 @@
               <div class="card-text">
                 <div class="col-md-12" style="height:100px;"><?php echo $description; ?></div>
                 <div class="separator"></div>
-                <div class="col-md-6 float-md-left">
+                <div class="col-md-6 float-start">
                   <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal_<?php echo $i; ?>">
                     <?php echo $CLICSHOPPING_Upgrade->getDef('button_more_infos'); ?>
                   </button>
@@ -249,7 +249,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="float-md-right">
+                <div class="float-end">
                   <div class="col-md-12">
 <?php
             if ($temp_check === true) {
@@ -308,7 +308,7 @@
             <div class="card-footer">
               <div class="col-md-12"><?php echo $file_cache_information; ?></div>
               <div class="col-md-12 text-danger"><?php echo $local_version; ?></div>
-              <div class="col-md-12 float-md-right text-md-right text-primary"><?php echo $temp_version; ?></div>
+              <div class="col-md-12 float-end text-md-right text-primary"><?php echo $temp_version; ?></div>
             </div>
           </div>
         </div>
@@ -353,7 +353,7 @@
                 <div class="col-md-12">
                   <?php echo $CLICSHOPPING_Upgrade->getDef('text_server_version') . $current_version_github; ?>
                 </div>
-                <div class="col-md-6 float-md-left">
+                <div class="col-md-6 float-start">
                   <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal_<?php echo $i; ?>">
                     <?php echo $CLICSHOPPING_Upgrade->getDef('button_more_infos'); ?>
                   </button>
@@ -419,7 +419,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6 text-md-right float-md-right">
+                <div class="col-md-6 text-md-right float-end">
 <?php
               if (strtolower($result_content_module->is_free) != 'yes') {
                 echo '<span class="text-md-right"><a href="' . $result_content_module->website_link_to_sell . '" target="_blank" rel="noreferrer" class="btn btn-success btn-sm active" role="button" aria-pressed="true">' . $CLICSHOPPING_Upgrade->getDef('button_not_free') . '</a></span>';
