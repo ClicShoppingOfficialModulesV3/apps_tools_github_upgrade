@@ -79,9 +79,9 @@
 
     if (isset($module_directory)) {
       if (!empty($file_cache_temp_array[0])) {
-        $count_file = count($file_cache_temp_array);
+        $count_file = \count($file_cache_temp_array);
 
-        if (is_array($file_cache_temp_array)) {
+        if (\is_array($file_cache_temp_array)) {
           foreach ($file_cache_temp_array as $value) {
             if (is_file($CLICSHOPPING_Github->cacheGithubTemp . $value['name'] . '.json')) {
               $result[] = $CLICSHOPPING_Github->getSearchInsideRepo($CLICSHOPPING_Github->cacheGithubTemp . $value['name'] . '.json');
@@ -135,7 +135,7 @@
         $temp_check = false;
         $installed_check = false;
 
-        if ($CLICSHOPPING_Github->getCacheFile($module_real_name . '.json') === true || !is_null($CLICSHOPPING_Github->getCacheFileTemp($module_real_name . '.json'))) {
+        if ($CLICSHOPPING_Github->getCacheFile($module_real_name . '.json') === true || !\is_null($CLICSHOPPING_Github->getCacheFileTemp($module_real_name . '.json'))) {
           if ($CLICSHOPPING_Github->getCacheFile($module_real_name . '.json') === true) {
             $result_module_real_name = $CLICSHOPPING_Github->getCacheFile($module_real_name . '.json');
             $file_cache_information = '<span class="badge badge-primary"> - File Installed Cached</span>';
@@ -164,7 +164,7 @@
           }
 
           if (!empty($module_real_name)) {
-            if (!is_null($CLICSHOPPING_Github->getCacheFile($module_real_name . '.json')) || $CLICSHOPPING_Github->getCacheFile($module_real_name . '.json') === true) {
+            if (!\is_null($CLICSHOPPING_Github->getCacheFile($module_real_name . '.json')) || $CLICSHOPPING_Github->getCacheFile($module_real_name . '.json') === true) {
               $result_module_real_name = $CLICSHOPPING_Github->getCacheFileTemp($module_real_name . '.json');
 
               if ($item !== false && is_object($item->version)) {
@@ -339,7 +339,7 @@
 <?php
         $result_module_real_name = $CLICSHOPPING_Github->getJsonRepoContentInformationModule($module_real_name);
 
-        if (is_array($result_module_real_name)) {
+        if (\is_array($result_module_real_name)) {
           foreach ($result_module_real_name as $content) {
             $content_module_name = $content->name;
             $content_module_sha = $content->sha;
