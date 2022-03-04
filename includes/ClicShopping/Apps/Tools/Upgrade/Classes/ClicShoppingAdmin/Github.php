@@ -97,17 +97,21 @@
     {
       $VersionCache = new Cache('clicshopping_core_information');
 
-      if ($VersionCache->exists(30)) {
+      if ($VersionCache->exists(30) !== false) {
         $result = $VersionCache->get();
       } else {
-        $json = @file_get_contents($this->getGithubCoreRepo() . '/contents/shop/includes/ClicShopping/version.json?ref=master', true, $this->context);
+        if (is_file($this->getGithubCoreRepo() . '/contents/shop/includes/ClicShopping/version.json?ref=master')) {
+          $json = @file_get_contents($this->getGithubCoreRepo() . '/contents/shop/includes/ClicShopping/version.json?ref=master', true, $this->context);
 
-        $url = json_decode($json);
+          $url = json_decode($json);
 
-        $url_download = @file_get_contents($url->download_url, true, $this->setContext()); //content of readme.
-        $data = json_decode($url_download);
+          $url_download = @file_get_contents($url->download_url, true, $this->setContext()); //content of readme.
+          $data = json_decode($url_download);
 
-        $result = $VersionCache->save($data);
+          $result = $VersionCache->save($data);
+        } else {
+          $result = false;
+        }
       }
 
       return $result;
@@ -314,7 +318,7 @@
           $file_name = $module_name;
           $file_array = explode('.', $file_name);
           $extension = \count($file_array) - 1;
-          $filename = substr($file_name, 0, strlen($file_name) - strlen($file_array[$extension]) - 1);
+          $filename = substr($file_name, 0, \strlen($file_name) - \strlen($file_array[$extension]) - 1);
 
           $content_json_file = @file_get_contents($this->getGithubRepo() . $filename . '/contents/' . $this->ModuleInfosJson . '/' . $module_name . '?ref=master', true, $this->context);
           $content_download_file = json_decode($content_json_file);
