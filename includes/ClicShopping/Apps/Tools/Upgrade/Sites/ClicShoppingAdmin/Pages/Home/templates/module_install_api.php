@@ -4,7 +4,7 @@
    * @copyright 2008 - https://www.clicshopping.org
    * @Brand : ClicShopping(Tm) at Inpi all right Reserved
    * @Licence GPL 2 & MIT
-   * @licence MIT - Portion of osCommerce 2.4
+
    * @Info : https://www.clicshopping.org/forum/trademark/
    *
    */
@@ -191,7 +191,7 @@
                       <p><?php echo $CLICSHOPPING_Upgrade->getDef('text_description') . $description; ?></p>
                       <p>
                         <?php
-                          if (strtolower($item->type) == 'apps') {
+                          if (mb_strtolower($item->type) == 'apps') {
                             echo $CLICSHOPPING_Upgrade->getDef('text_activate') . ' : ' . HTTP::typeUrlDomain('ClicShoppingAdmin') . 'index.php?A&' . $item->module_directory . '\\' . $result_content_module->apps_name;
                           }
                         ?>
@@ -223,7 +223,7 @@
 
                     $error = false;
 
-                    if (strtolower($item->is_free) == 'no') {
+                    if (mb_strtolower($item->is_free) == 'no') {
                       if (!empty($item->website_link_to_sell)) {
                         if (strpos("https://www.clicshopping.org/forum/files/file/", "https://www.clicshopping.org")) {
                           $message = $CLICSHOPPING_Upgrade->getDef('error_link_not_allowed');
@@ -239,7 +239,7 @@
                         echo '<div class="text-end"> ' . HTML::button($CLICSHOPPING_Upgrade->getDef('button_not_free'), null, $marketplace_link, 'primary', ['newwindow' => 'blank'], 'sm') . '</div>';
                       }
                     } else {
-                      if (strtolower($item->is_free) == 'yes') {
+                      if (mb_strtolower($item->is_free) == 'yes') {
                         echo '<div class="text-end"> ' . HTML::button($CLICSHOPPING_Upgrade->getDef('button_install'), null, null, 'warning', null, 'sm') . '</div>';
                       }
                     }
@@ -251,7 +251,7 @@
                     echo '</form>';
                   }
 
-                  if (strtolower($item->type) == 'apps') {
+                  if (mb_strtolower($item->type) == 'apps') {
                     $module = CLICSHOPPING::link(null, 'A&' . $item->module_directory . '\\' . $item->apps_name);
                   } else {
                     $module = 'modules.php?set=' . $item->module_directory . '&list=new';
@@ -329,7 +329,7 @@
                                         <p><?php echo $CLICSHOPPING_Upgrade->getDef('text_more_infos') . '<a href="' . $link_html . '" target="_blank" rel="noreferrer">Github</a>'; ?></p>
                                         <p>
                                           <?php
-                                            if (strtolower($result_content_module->is_free) != 'no') {
+                                            if (mb_strtolower($result_content_module->is_free) != 'no') {
                                               echo $CLICSHOPPING_Upgrade->getDef('text_download') . '<a href="' . $link_html . '/archive/master.zip">' . $module_real_name . '</a>';
                                             }
                                           ?>
@@ -350,13 +350,13 @@
                                 <?php
                                   echo HTML::form('install', $CLICSHOPPING_Upgrade->link('Upgrade&ModuleInstall'));
 
-                                  if (strtolower($result_content_module->is_free) != 'yes') {
+                                  if (mb_strtolower($result_content_module->is_free) != 'yes') {
                                     echo '<span class="text-end"><a href="' . $result_content_module->website_link_to_sell . '" target="_blank" rel="noreferrer" class="btn btn-success btn-sm active" role="button" aria-pressed="true">' . $CLICSHOPPING_Upgrade->getDef('button_not_free') . '</a></span>';
                                   } else {
                                     echo '<span class="text-end"> ' . HTML::button($CLICSHOPPING_Upgrade->getDef('button_install'), null, null, 'warning', null, 'sm') . '</span>';
                                   }
 
-                                  if (strtolower($result_content_module->is_core) == 'yes') {
+                                  if (mb_strtolower($result_content_module->is_core) == 'yes') {
                                     echo '<span class="text-end"> ' . HTML::button($CLICSHOPPING_Upgrade->getDef('button_core'), null, null, 'danger', null, 'sm') . '</span>';
                                   }
 
@@ -365,7 +365,7 @@
                                   echo HTML::hiddenField('module_directory', $module_directory);
                                   echo '</form>';
 
-                                  if (strtolower($result_content_module->type) == 'apps') {
+                                  if (mb_strtolower($result_content_module->type) == 'apps') {
                                     $module = CLICSHOPPING::link(null, 'A&' . $result_content_module->module_directory . '\\' . $result_content_module->apps_name);
                                   } else {
                                     $module = 'modules.php?set=' . $result_content_module->module_directory . '&list=new';

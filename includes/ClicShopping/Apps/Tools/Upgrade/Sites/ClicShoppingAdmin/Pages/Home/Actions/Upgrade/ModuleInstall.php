@@ -4,7 +4,7 @@
    * @copyright 2008 - https://www.clicshopping.org
    * @Brand : ClicShopping(Tm) at Inpi all right Reserved
    * @Licence GPL 2 & MIT
-   * @licence MIT - Portion of osCommerce 2.4
+
    * @Info : https://www.clicshopping.org/forum/trademark/
    *
    */
@@ -39,7 +39,7 @@
       $module_directory = HTML::sanitize($_POST['module_directory']);
 
       if (FileSystem::isWritable(CLICSHOPPING::BASE_DIR . 'Work/Temp/')) {
-        if ($type_module == strtolower('template' ) || $type_module == strtolower('language')) {
+        if ($type_module == mb_strtolower('template' ) || $type_module == mb_strtolower('language')) {
           $CLICSHOPPING_Github->getModuleMasterArchive($module_real_name);
           $CLICSHOPPING_Github->getInstallModuleTemplate($module_real_name);
         } else {
